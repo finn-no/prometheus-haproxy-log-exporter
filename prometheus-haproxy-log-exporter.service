@@ -1,0 +1,13 @@
+[Unit]
+Description=Expose data from HAProxy for collection by Prometheus
+BindsTo=haproxy.service
+After=haproxy.service
+
+[Service]
+User=nobody
+Group=systemd-journal
+Environment='LICENCE_LOCATION=/usr/share/doc/prometheus-haproxy-log-exporter/copyright'
+ExecStart=/usr/bin/prometheus-haproxy-log-exporter --journal
+
+[Install]
+WantedBy=haproxy.service

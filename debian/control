@@ -1,0 +1,26 @@
+Source: prometheus-haproxy-log-exporter
+Section: net
+Priority: optional
+Maintainer: Christopher Baines <mail@cbaines.net>
+Homepage: http://git.cbaines.net/prometheus-haproxy-log-exporter/
+Build-Depends: debhelper (>= 9),
+               dh-systemd,
+               dh-python,
+               help2man,
+               python3-all,
+               python3-setuptools,
+Standards-Version: 3.9.6
+X-Python3-Version: >= 3.2
+
+Package: prometheus-haproxy-log-exporter
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         python3-configargparse,
+         python3-prometheus-client,
+         python3-systemd,
+         python3-pygtail,
+         python3-haproxy-log-analysis,
+         python3-pkg-resources,
+Description: Export metrics from HAProxy to Prometheus
+ This is a highly configurable exporter for HAProxy.

@@ -1,0 +1,5 @@
+# HAProxy Log exporter for Prometheus
+
+This is a highly configurable exporter for HAProxy.
+
+Please send any comments or queries to Christopher Baines <mail@cbaines.net>.

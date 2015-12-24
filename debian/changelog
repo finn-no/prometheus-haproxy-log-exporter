@@ -1,0 +1,5 @@
+prometheus-haproxy-log-exporter (0.1) unstable; urgency=low
+
+  * Initial release
+
+ -- Christopher Baines <mail@cbaines.net>  Tue, 23 Feb 2016 22:48:39 +0000

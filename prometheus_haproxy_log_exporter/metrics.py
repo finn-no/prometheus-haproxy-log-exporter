@@ -85,7 +85,7 @@ DEFAULT_TIMER_BUCKETS = (
 
 
 DEFAULT_QUEUE_LENGTH_BUCKETS = tuple(itertools.chain(
-    range(1, 10),
+    range(0, 10),
     (20, 30, 40, 60, 100, float('inf')),
 ))
 

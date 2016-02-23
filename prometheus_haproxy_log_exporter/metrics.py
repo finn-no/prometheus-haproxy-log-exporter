@@ -206,6 +206,7 @@ def backend_queue_length(labelnames, buckets):
         "Requests processed before this one in the backend queue",
         namespace=NAMESPACE,
         labelnames=tuple(labelnames),
+        buckets=buckets,
     )
 
     if len(labelnames) == 0:
@@ -227,6 +228,7 @@ def server_queue_length(labelnames, buckets):
         "Length of the server queue when the request was received",
         namespace=NAMESPACE,
         labelnames=tuple(labelnames),
+        buckets=buckets,
     )
 
     if len(labelnames) == 0:

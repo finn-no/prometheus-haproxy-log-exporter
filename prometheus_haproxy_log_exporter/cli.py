@@ -50,6 +50,20 @@ def get_argument_parser():
     )
 
     p.add(
+        '--port',
+        default='9129',
+        help="Port on which to expose metrics",
+        type=int,
+        env_var='PORT',
+    )
+    p.add(
+        '--host',
+        default='0.0.0.0',
+        help="Host on which to expose metrics",
+        env_var='HOST',
+    )
+
+    p.add(
         '--licence-location',
         default=join(dirname(dirname(normpath(__file__))), 'LICENSE'),
         help="The location of the licence, linked to through the web interface",
@@ -243,8 +257,8 @@ def main():
     log_processor = create_log_processor(options, p.error)
     log_processor.start()
 
-    host = '0.0.0.0'
-    port = 9129
+    host = options.host
+    port = options.port
 
     httpd = HTTPServer(
         (host, port),

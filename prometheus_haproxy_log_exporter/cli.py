@@ -182,9 +182,6 @@ def get_argument_parser():
 
 
 def create_log_processor(options, error):
-    from pprint import pprint
-    pprint(options)
-
     metric_updaters = []
 
     for timer_name in metrics.TIMERS.keys():

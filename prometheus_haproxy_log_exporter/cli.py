@@ -29,9 +29,6 @@ from .exposition import create_request_handler
 def get_argument_parser():
     p = configargparse.ArgParser(
         prog="prometheus-haproxy-log-exporter",
-        default_config_files=[
-            '/etc/prometheus-haproxy-log-exporter/config',
-        ],
     )
 
     p.add(

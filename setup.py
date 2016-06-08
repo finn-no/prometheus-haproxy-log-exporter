@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from setuptools import setup, find_packages
 
 setup(
@@ -8,4 +10,13 @@ setup(
             'prometheus-haproxy-log-exporter = prometheus_haproxy_log_exporter.cli:main',
         ],
     },
+    # Requirements
+    install_requires=[
+         'configargparse',
+         'prometheus-client',
+         #'systemd', ??? Unknown which module this is
+         'pygtail',
+         'haproxy-log-analysis',
+         #'pkg-resources', ??? Unknown which module this is
+    ],
 )

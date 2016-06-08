@@ -9,3 +9,6 @@ debian/prometheus-haproxy-log-exporter
 *.log
 *.debhelper
 *.substvars
+
+.idea
+*.iml

@@ -53,7 +53,7 @@ class AbstractLogProcessor(threading.Thread):
 
         if not line.valid:
             self.processing_errors.inc()
-            logging.warning("Failed to parse line: %s" % raw_line)
+            logging.debug("Failed to parse line: %s" % raw_line)
             return
 
         try:

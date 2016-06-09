@@ -17,6 +17,10 @@ from ..log_processing import AbstractLogProcessor
 
 
 class LogFileProcessor(AbstractLogProcessor):
-    def run(self, path):
-        for line in Pygtail(path):
+    def __init__(self, metric_updaters, path, *args, **kwargs):
+        super().__init__(metric_updaters, *args, **kwargs)
+        self.path = path
+
+    def run(self):
+        for line in Pygtail(self.path):
             self.update_metrics(line)

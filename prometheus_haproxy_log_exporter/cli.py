@@ -73,8 +73,6 @@ def get_argument_parser():
         '-f',
         '--file',
         help="read logs from a log file",
-        type=configargparse.FileType('r'),
-        action='store',
         dest='file',
         env_var='LOG_FILE',
     )

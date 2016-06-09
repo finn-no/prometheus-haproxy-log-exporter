@@ -2,6 +2,8 @@
 __pycache__
 *.pyc
 *.egg-info
+.cache
+.eggs
 
 .pybuild
 debian/files
@@ -12,3 +14,5 @@ debian/prometheus-haproxy-log-exporter
 
 .idea
 *.iml
+
+build

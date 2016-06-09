@@ -15,9 +15,9 @@ setup(
          'configargparse',
          'prometheus-client',
          #'systemd', ??? Unknown which module this is
-         'pygtail',
          'haproxy-log-analysis<2.0',
          #'pkg-resources', ??? Unknown which module this is
+         'tailhead'
     ],
     setup_requires=['pytest-runner'],
     tests_require=['pytest-sugar', 'pytest-html', 'pytest-cov', 'pytest'],

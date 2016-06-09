@@ -19,7 +19,6 @@ Depends: ${misc:Depends},
          python3-configargparse,
          python3-prometheus-client,
          python3-systemd,
-         python3-pygtail,
          python3-haproxy-log-analysis,
          python3-pkg-resources,
 Description: Export metrics from HAProxy to Prometheus

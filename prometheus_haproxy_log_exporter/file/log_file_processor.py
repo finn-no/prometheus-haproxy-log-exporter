@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pygtail import Pygtail
+import tailhead
 
 from ..log_processing import AbstractLogProcessor
 
@@ -22,5 +22,5 @@ class LogFileProcessor(AbstractLogProcessor):
         self.path = path
 
     def run(self):
-        for line in Pygtail(self.path):
+        for line in tailhead.follow_path(self.path):
             self.update_metrics(line)

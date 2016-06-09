@@ -3,3 +3,5 @@
 This is a highly configurable exporter for HAProxy.
 
 Please send any comments or queries to Christopher Baines <mail@cbaines.net>.
+
+TODO: Debian package of tailhead is needed in order to create debian package

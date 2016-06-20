@@ -12,6 +12,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tailhead
+import time
 
 from ..log_processing import AbstractLogProcessor
 
@@ -23,4 +24,7 @@ class LogFileProcessor(AbstractLogProcessor):
 
     def run(self):
         for line in tailhead.follow_path(self.path):
+            if line is None:
+                time.sleep(0.1)
+                continue
             self.update_metrics(line)

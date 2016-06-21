@@ -39,6 +39,13 @@ def get_argument_parser():
     )
 
     p.add(
+        '-v',
+        '--verbose',
+        help="Enable debug logging",
+        action="store_true"
+    )
+
+    p.add(
         '-c',
         '--config',
         is_config_file=True,
@@ -239,10 +246,10 @@ def create_log_processor(options, error):
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
-
     p = get_argument_parser()
     options = p.parse_args()
+
+    logging.basicConfig(level=logging.DEBUG if options.verbose else logging.INFO)
 
     logging.info(p.format_values())
 

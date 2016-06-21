@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8
 
+import threading
+import time
 from unittest.mock import MagicMock
 
 import pytest
@@ -35,8 +37,14 @@ Jun  9 12:31:49 softwarelb1-prod1.z01.finn.no haproxy[11058]: 127.0.0.1:42592 [0
 
 
 @pytest.fixture()
-def logfile(tmpdir):
+def tmpfile(tmpdir):
     tmpfile = tmpdir.join("haproxy.log")
+    print(tmpfile)
+    return tmpfile
+
+
+@pytest.fixture()
+def logfile(tmpfile):
     tmpfile.write(LOG_CONTENT)
     return tmpfile
 
@@ -46,10 +54,20 @@ def updater_mock():
     return MagicMock()
 
 
-def test_path(logfile, updater_mock):
+def test_follow(tmpfile, updater_mock):
+    tmp = tmpfile.open('w')
     log_processor = LogFileProcessor(
         metric_updaters=[updater_mock],
-        path=str(logfile),
+        path=str(tmpfile),
     )
-    log_processor.run()
+    lp = threading.Thread(target=log_processor.run)
+    lp.start()
+    time.sleep(1)
+    for line in LOG_CONTENT.splitlines(keepends=True):
+        tmp.write(line)
+        time.sleep(0)
+    tmp.close()
+    time.sleep(1)
+    log_processor.should_exit = True
+    lp.join()
     assert updater_mock.call_count == 13

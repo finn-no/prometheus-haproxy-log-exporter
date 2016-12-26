@@ -103,7 +103,7 @@ def requests_total(labelnames):
             requests_total.inc()
     else:
         def observe(line):
-            requests_total.labels({
+            requests_total.labels(**{
                 label: getattr(line, label)
                 for label in labelnames
             }).inc()
@@ -143,7 +143,7 @@ def timer(timer_name, labelnames, buckets):
                 label_values['logasap'] = False
                 value = float(raw_value)
 
-            histogram.labels(label_values).observe(value)
+            histogram.labels(**label_values).observe(value)
     else:
         abort_counter_name, abort_counter_documentation = TIMER_ABORT_COUNTERS[timer_name]
 
@@ -172,9 +172,9 @@ def timer(timer_name, labelnames, buckets):
                 }
 
                 if value == -1:
-                    abort_counter.labels(label_values).inc()
+                    abort_counter.labels(**label_values).inc()
                 else:
-                    histogram.labels(label_values).observe(value)
+                    histogram.labels(**label_values).observe(value)
 
     return observe
 
@@ -192,7 +192,7 @@ def bytes_read_total(labelnames):
             counter.inc()
     else:
         def observe(line):
-            counter.labels({
+            counter.labels(**{
                 label: getattr(line, label)
                 for label in labelnames
             }).inc()
@@ -214,7 +214,7 @@ def backend_queue_length(labelnames, buckets):
             histogram.observe(line.queue_backend)
     else:
         def observe(line):
-            histogram.labels({
+            histogram.labels(**{
                 label: getattr(line, label)
                 for label in labelnames
             }).observe(line.queue_backend)
@@ -236,7 +236,7 @@ def server_queue_length(labelnames, buckets):
             histogram.observe(line.queue_server)
     else:
         def observe(line):
-            histogram.labels({
+            histogram.labels(**{
                 label: getattr(line, label)
                 for label in labelnames
             }).observe(line.queue_server)

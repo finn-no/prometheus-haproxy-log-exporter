@@ -14,7 +14,7 @@ else:
              'configargparse',
              'prometheus-client',
              #'systemd', ??? Unknown which module this is
-             'haproxy-log-analysis<2.0',
+             'haproxy-log-analysis',
              #'pkg-resources', ??? Unknown which module this is
              'tailhead'
         ],

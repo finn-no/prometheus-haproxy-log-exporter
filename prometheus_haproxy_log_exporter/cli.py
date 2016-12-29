@@ -104,7 +104,7 @@ def get_argument_parser():
     processor.add_argument(
         '-k',
         '--kafka',
-        help="fread log rom kafka brokers host:port[,host:port...]",
+        help="read log from kafka brokers host:port[,host:port...]",
         dest='kafka',
         env_var='KAFKA_BROKERS',
     )

@@ -62,3 +62,6 @@ class AbstractLogProcessor(threading.Thread):
         except Exception as e:
             self.processing_errors.inc()
             logging.exception("%s (error updating metrics): %s" % (e, raw_line))
+
+    def stop(self):
+        self.should_exit = True

@@ -21,6 +21,7 @@ class JournalProcessor(AbstractLogProcessor):
         super(JournalProcessor, self).__init__(*args, **kwargs)
 
         self.unit = unit
+        self.should_exit = False
 
     def run(self):
         with journal.Reader() as j:
@@ -30,6 +31,8 @@ class JournalProcessor(AbstractLogProcessor):
             j.get_previous()
 
             while True:
+                if self.should_exit:
+                    return
                 for entry in j:
                     self.update_metrics(entry['MESSAGE'])
                 j.wait()

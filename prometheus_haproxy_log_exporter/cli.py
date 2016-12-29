@@ -101,6 +101,25 @@ def get_argument_parser():
         action='store_true',
         env_var='STDIN',
     )
+    processor.add_argument(
+        '-k',
+        '--kafka',
+        help="fread log rom kafka brokers host:port[,host:port...]",
+        dest='kafka',
+        env_var='KAFKA_BROKERS',
+    )
+    p.add(
+        '--topic',
+        help="kafka topic to consume",
+        dest='kafka_topic',
+        env_var='KAFKA_TOPIC',
+    )
+    p.add(
+        '--group',
+        help="kafka consumer group",
+        dest='kafka_group',
+        env_var='KAFKA_GROUP',
+    )
 
     p.add(
         '--enabled-metrics',
@@ -241,6 +260,15 @@ def create_log_processor(options, error):
             metric_updaters=metric_updaters,
             path=options.file,
         )
+    elif options.kafka:
+        from .kafka import KafkaProcessor
+
+        log_processor = KafkaProcessor(
+            metric_updaters=metric_updaters,
+            topic=options.kafka_topic,
+            group=options.kafka_group,
+            brokers=options.kafka
+        )
 
     return log_processor
 
@@ -270,3 +298,5 @@ def main():
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
+
+    log_processor.stop()

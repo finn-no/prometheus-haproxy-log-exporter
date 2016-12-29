@@ -11,28 +11,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from systemd import journal
+from kafka import KafkaConsumer
 
 from ..log_processing import AbstractLogProcessor
 
 
-class JournalProcessor(AbstractLogProcessor):
-    def __init__(self, unit, *args, **kwargs):
-        super(JournalProcessor, self).__init__(*args, **kwargs)
-
-        self.unit = unit
+class KafkaProcessor(AbstractLogProcessor):
+    def __init__(self, metric_updaters, topic, group, brokers, *args, **kwargs):
+        super().__init__(metric_updaters, *args, **kwargs)
+        self.topic = topic
+        self.group = group
+        self.brokers = brokers
         self.should_exit = False
 
     def run(self):
-        with journal.Reader() as j:
-            j.add_match(_SYSTEMD_UNIT=self.unit)
-
-            j.seek_tail()
-            j.get_previous()
-
-            while True:
-                if self.should_exit:
-                    return
-                for entry in j:
-                    self.update_metrics(entry['MESSAGE'])
-                j.wait()
+        consumer = KafkaConsumer(self.topic, bootstrap_servers=self.brokers, group_id=self.group)
+        for msg in consumer:
+            self.update_metrics(msg.value.decode())
+            if self.should_exit:
+                consumer.close()
+                return

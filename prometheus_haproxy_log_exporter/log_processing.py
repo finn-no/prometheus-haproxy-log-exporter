@@ -15,7 +15,7 @@ import re
 import logging
 import threading
 
-from haproxy.haproxy_logline import HaproxyLogLine
+from haproxy.line import Line
 from prometheus_client import Counter
 
 from .metrics import NAMESPACE
@@ -45,7 +45,7 @@ class AbstractLogProcessor(threading.Thread):
     def update_metrics(self, raw_line):
         try:
             raw_line = JOURNAL_REGEX.sub('', raw_line.strip())
-            line = HaproxyLogLine(raw_line.strip())
+            line = Line(raw_line.strip())
         except Exception as e:
             self.processing_errors.inc()
             logging.exception("%s (line parsing error): %s" % (e, raw_line))
